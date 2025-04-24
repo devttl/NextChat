@@ -183,8 +183,8 @@ function Screen() {
   }
   const renderContent = () => {
     if (isAuth) return <AuthPage />;
-    if (isSd) return <Sd />;
-    if (isSdNew) return <Sd />;
+    // if (isSd) return <Sd />;
+    // if (isSdNew) return <Sd />;
     return (
       <>
         <SideBar

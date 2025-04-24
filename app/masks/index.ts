@@ -1,6 +1,7 @@
 import { Mask } from "../store/mask";
 
 import { type BuiltinMask } from "./typing";
+
 export { type BuiltinMask } from "./typing";
 
 export const BUILTIN_MASK_ID = 100000;
@@ -30,8 +31,8 @@ if (typeof window != "undefined") {
       return { cn: [], tw: [], en: [] };
     })
     .then((masks) => {
-      const { cn = [], tw = [], en = [] } = masks;
-      return [...cn, ...tw, ...en].map((m) => {
+      const { en = [], cn = [] } = masks;
+      return [...en, ...cn].map((m) => {
         BUILTIN_MASKS.push(BUILTIN_MASK_STORE.add(m));
       });
     });
