@@ -4,7 +4,7 @@ import styles from "./home.module.scss";
 
 import { IconButton } from "./button";
 import SettingsIcon from "../icons/settings.svg";
-import ChatGptIcon from "../icons/chatgpt.svg";
+import LogoIcon from "../icons/image/logo.png";
 import AddIcon from "../icons/add.svg";
 import DeleteIcon from "../icons/delete.svg";
 import MaskIcon from "../icons/mask.svg";
@@ -170,11 +170,10 @@ export function SideBarContainer(props: {
 export function SideBarHeader(props: {
   title?: string | React.ReactNode;
   subTitle?: string | React.ReactNode;
-  logo?: React.ReactNode;
   children?: React.ReactNode;
   shouldNarrow?: boolean;
 }) {
-  const { title, subTitle, logo, children, shouldNarrow } = props;
+  const { title, subTitle, children, shouldNarrow } = props;
   return (
     <Fragment>
       <div
@@ -189,7 +188,9 @@ export function SideBarHeader(props: {
           </div>
           <div className={styles["sidebar-sub-title"]}>{subTitle}</div>
         </div>
-        <div className={clsx(styles["sidebar-logo"], "no-dark")}>{logo}</div>
+        <div className={clsx(styles["sidebar-logo"], "no-dark")}>
+          <img width={44} height={44} src={LogoIcon.src} alt="Logo" />
+        </div>
       </div>
       {children}
     </Fragment>
@@ -250,7 +251,6 @@ export function SideBar(props: { className?: string }) {
       <SideBarHeader
         title="AI Assistant"
         subTitle="Build your own AI assistant."
-        logo={<ChatGptIcon />}
         shouldNarrow={shouldNarrow}
       >
         <div className={styles["sidebar-header-bar"]}>

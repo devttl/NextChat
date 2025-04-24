@@ -21,6 +21,7 @@ import BotIconGrok from "../icons/llm-icons/grok.svg";
 import BotIconHunyuan from "../icons/llm-icons/hunyuan.svg";
 import BotIconDoubao from "../icons/llm-icons/doubao.svg";
 import BotIconChatglm from "../icons/llm-icons/chatglm.svg";
+import IconImg from "../icons/image/img.png";
 
 export function getEmojiUrl(unified: string, style: EmojiStyle) {
   // Whoever owns this Content Delivery Network (CDN), I am using your CDN to serve emojis
@@ -51,6 +52,20 @@ export function Avatar(props: { model?: ModelType; avatar?: string }) {
   if (props.model) {
     const modelName = props.model.toLowerCase();
 
+    if (props.model.startsWith("gemini") || props.model.startsWith("learnlm")) {
+      return (
+        <div className="no-dark">
+          <img
+            className="user-avatar"
+            src={IconImg.src}
+            alt="icon"
+            width={30}
+            height={30}
+          />
+        </div>
+      );
+    }
+
     if (
       modelName.startsWith("gpt") ||
       modelName.startsWith("chatgpt") ||
@@ -68,7 +83,10 @@ export function Avatar(props: { model?: ModelType; avatar?: string }) {
       LlmIcon = BotIconClaude;
     } else if (modelName.includes("llama")) {
       LlmIcon = BotIconMeta;
-    } else if (modelName.startsWith("mixtral") || modelName.startsWith("codestral")) {
+    } else if (
+      modelName.startsWith("mixtral") ||
+      modelName.startsWith("codestral")
+    ) {
       LlmIcon = BotIconMistral;
     } else if (modelName.includes("deepseek")) {
       LlmIcon = BotIconDeepseek;
