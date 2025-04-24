@@ -7,6 +7,7 @@ import {
   Draggable,
   OnDragEndResponder,
 } from "@hello-pangea/dnd";
+import { GoogleAd } from "./ad/GoogleAd";
 
 import { useChatStore } from "../store";
 
@@ -15,7 +16,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { Path } from "../constant";
 import { MaskAvatar } from "./mask";
 import { Mask } from "../store/mask";
-import { useRef, useEffect } from "react";
+import React, { useRef, useEffect } from "react";
 import { showConfirm } from "./ui-lib";
 import { useMobileScreen } from "../utils";
 import clsx from "clsx";
@@ -166,6 +167,9 @@ export function ChatList(props: { narrow?: boolean }) {
               />
             ))}
             {provided.placeholder}
+            <div style={{ position: "relative" }}>
+              <GoogleAd width="100%" height={20} slot={"2867242421"} />
+            </div>
           </div>
         )}
       </Droppable>

@@ -125,6 +125,7 @@ import { getModelProvider } from "../utils/model";
 import { RealtimeChat } from "@/app/components/realtime-chat";
 import clsx from "clsx";
 import { getAvailableClientsCount, isMcpEnabled } from "../mcp/actions";
+import { GoogleAd } from "@/app/components/ad/GoogleAd";
 
 const localStorage = safeLocalStorage();
 
@@ -2038,6 +2039,9 @@ function _Chat() {
                     </Fragment>
                   );
                 })}
+            </div>
+            <div style={{ position: "relative" }}>
+              <GoogleAd slot={"1765913747"} />
             </div>
             <div className={styles["chat-input-panel"]}>
               <PromptHints
