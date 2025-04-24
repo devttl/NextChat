@@ -66,6 +66,11 @@ export default function RootLayout({
             <GoogleAnalytics gaId={serverConfig.gaId} />
           </>
         )}
+        <script
+          async
+          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8812972567833913"
+          crossOrigin="anonymous"
+        ></script>
       </body>
     </html>
   );
