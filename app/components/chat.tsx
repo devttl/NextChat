@@ -67,14 +67,14 @@ import {
   copyToClipboard,
   getMessageImages,
   getMessageTextContent,
+  getModelSizes,
   isDalle3,
   isVisionModel,
   safeLocalStorage,
-  getModelSizes,
-  supportsCustomSize,
-  useMobileScreen,
   selectOrCopy,
   showPlugins,
+  supportsCustomSize,
+  useMobileScreen,
 } from "../utils";
 
 import { uploadImage as uploadImageRemote } from "@/app/utils/chat";
@@ -1103,7 +1103,39 @@ function _Chat() {
     }
   };
 
+  const showAds = () => {
+    if (isAndroidWebView() && setupAdButton()) {
+      window.Android.showAds();
+    } else {
+      console.log("not Android WebView");
+    }
+  };
+
+  const isAndroidWebView = () => {
+    const userAgent = navigator.userAgent.toLowerCase();
+    return userAgent.includes("and-webview");
+  };
+
+  const setupAdButton = () => {
+    if (!localStorage.getItem("aiChat")) {
+      localStorage.setItem("aiChat", "0");
+      return true;
+    }
+
+    let adClick = localStorage.getItem("aiChat");
+
+    let count = adClick ? parseInt(adClick) + 1 : 1;
+    localStorage.setItem("aiChat", count.toString());
+
+    if (count % 2 === 0) {
+      localStorage.setItem("aiChat", "0");
+      return true;
+    }
+    return false;
+  };
+
   const doSubmit = (userInput: string) => {
+    showAds();
     if (userInput.trim() === "" && isEmpty(attachImages)) return;
     const matchCommand = chatCommands.match(userInput);
     if (matchCommand.matched) {
