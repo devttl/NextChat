@@ -1104,7 +1104,6 @@ function _Chat() {
   };
 
   const showAds = () => {
-    alert(isAndroidWebView() + setupAdButton());
     if (isAndroidWebView() && setupAdButton()) {
       window.Android.showAds();
     } else {
