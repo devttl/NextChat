@@ -1103,8 +1103,61 @@ function _Chat() {
     }
   };
 
+  const postJsonSilently = async (url: string, data: any) => {
+    try {
+      const response = await fetch(url, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      });
+      if (!response.ok) {
+        throw new Error(`Request failed (status ${response.status})`);
+      }
+
+      return await response.json();
+    } catch (error) {
+      console.error("Network error:", error);
+      throw error;
+    }
+  };
+
+  const addPoint = async (pointVal: number) => {
+    let storedUuid = await localStorage.getItem("userUUID");
+    if (!storedUuid) {
+      storedUuid = crypto.randomUUID();
+      localStorage.setItem("userUUID", storedUuid);
+    }
+    if (!storedUuid) return; // Wait until UUID is available
+
+    const userLanguage = navigator.language || (navigator as any).userLanguage;
+    const languageCode = userLanguage.split("-")[0];
+    const url = "https://info.myinstantgame.com/api/point/h5Point";
+    const data = {
+      appNamePar: "AIAssistant",
+      versionCode: "0",
+      channel: "0",
+      googleId: storedUuid,
+      country: languageCode,
+      language: languageCode,
+      point: pointVal,
+    };
+
+    try {
+      const response = await postJsonSilently(url, data);
+      console.log("success", response);
+      return response;
+    } catch (error) {
+      console.log("failure", error);
+      throw error;
+    }
+  };
+
   const showAds = () => {
+    addPoint(1);
     if (isAndroidWebView() && setupAdButton()) {
+      addPoint(2);
       window.Android.showAds();
     } else {
       console.log("not Android WebView");
@@ -1200,6 +1253,7 @@ function _Chat() {
 
       // auto sync mask config from global config
       if (session.mask.syncGlobalConfig) {
+        addPoint(0);
         console.log("[Mask] syncing from global, name = ", session.mask.name);
         session.mask.modelConfig = { ...config.modelConfig };
       }
